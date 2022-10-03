@@ -195,9 +195,9 @@ local function CreateZone(type, number)
         zoneCombo:onPlayerInOut(function(isPointInside)
             if isPointInside then
                 if type == "main" then
-                    TriggerEvent('qb-truckerjob:client:PaySlip')
+                    TriggerEvent('CTM_SecurityGuardJob:client:PaySlip')
                 elseif type == "vehicle" then
-                    TriggerEvent('qb-truckerjob:client:Vehicle')
+                    TriggerEvent('CTM_SecurityGuardJob:client:Vehicle')
                 elseif type == "stores" then
                     markerLocation = coords
                     QBCore.Functions.Notify(Lang:t("mission.store_reached"))
@@ -389,7 +389,7 @@ AddEventHandler('onResourceStart', function(resource)
     hasBox = false
     isWorking = false
     JobsDone = 0
-    if PlayerJob.name ~= "trucker" then return end
+    if PlayerJob.name ~= "security" then return end
     CreateElements()
 end)
 
@@ -400,7 +400,7 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     hasBox = false
     isWorking = false
     JobsDone = 0
-    if PlayerJob.name ~= "trucker" then return end
+    if PlayerJob.name ~= "security" then return end
     CreateElements()
 end)
 
@@ -422,12 +422,12 @@ RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
         exports['qb-core']:HideText()
         Delivering = false
         showMarker = false
-    elseif PlayerJob.name == "trucker" then
+    elseif PlayerJob.name == "security" then
         CreateElements()
     end
 end)
 
-RegisterNetEvent('qb-trucker:client:SpawnVehicle', function()
+RegisterNetEvent('CTM_SecurityGuardJob:client:SpawnVehicle', function()
     local vehicleInfo = selectedVeh
     local coords = Config.Locations["vehicle"].coords
     QBCore.Functions.TriggerCallback('QBCore:Server:SpawnVehicle', function(netId)
@@ -447,13 +447,13 @@ RegisterNetEvent('qb-trucker:client:SpawnVehicle', function()
     end, vehicleInfo, coords, true)
 end)
 
-RegisterNetEvent('qb-trucker:client:TakeOutVehicle', function(data)
+RegisterNetEvent('CTM_SecurityGuardJob:client:TakeOutVehicle', function(data)
     local vehicleInfo = data.vehicle
     TriggerServerEvent('qb-trucker:server:DoBail', true, vehicleInfo)
     selectedVeh = vehicleInfo
 end)
 
-RegisterNetEvent('qb-truckerjob:client:Vehicle', function()
+RegisterNetEvent('CTM_SecurityGuardJob:client:Vehicle', function()
     if IsPedInAnyVehicle(PlayerPedId()) and isTruckerVehicle(GetVehiclePedIsIn(PlayerPedId(), false)) then
         if GetPedInVehicleSeat(GetVehiclePedIsIn(PlayerPedId()), -1) == PlayerPedId() then
             if isTruckerVehicle(GetVehiclePedIsIn(PlayerPedId(), false)) then
