@@ -3,6 +3,7 @@ game 'gta5'
 
 description 'CTM_SecurityGuardJob'
 version '1.0.0'
+creator = CrypticTM
 
 shared_scripts {
     '@qb-core/shared/locale.lua',
